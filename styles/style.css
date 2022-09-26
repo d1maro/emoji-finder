@@ -62,3 +62,16 @@ img {
   min-width: 820px;
   min-height: 64px;
 }
+
+.main {
+  background: #edeef3;
+}
+
+.grid__container {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+
+  padding-top: 80px;
+  padding-bottom: 50px;
+}
