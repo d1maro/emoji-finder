@@ -2,6 +2,13 @@
 
 import { data } from "./emoji.js"
 
+function removeRepeats(arr) {
+    data.forEach(elem => {
+        elem.keywords = Array.from(new Set(elem.keywords.split(" "))).join(" ");
+    })
+}
+removeRepeats(data);
+
 const cont = document.querySelector(".grid__container");
 
 function createCard(data) {
