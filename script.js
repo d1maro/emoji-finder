@@ -38,3 +38,17 @@ removeRepeats(data); // вызов функции, которая удаляет
 data.forEach((elem) => {
   cont.append(createCard(elem));
 }); // вызов функции для создания карточки внутри заданной области через цикл
+
+const form = document.forms[0]; // переменная для формы (она единственная, поэтому forms[0])
+form.addEventListener("submit", (event) => event.preventDefault()); // предотвращение перезагрузки страницы при отправке формы
+
+const inputData = document.querySelector("input"); // переменная для инпута
+inputData.addEventListener("change", inputHandler); // прослушивание элемента
+
+function inputHandler(event) {
+  let x = event.target.value;
+  let y = data.filter((elem) => elem.keywords.includes(x));
+  cont.innerHTML = ""; // предварительная очистка страницы
+  y.forEach((elem) => cont.append(createCard(elem))); // отрисовка элементов из нового массива
+}
+// функция для поиска и отрисовки по значению инпута
