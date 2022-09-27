@@ -1,39 +1,40 @@
 "use strict";
 
-import { data } from "./emoji.js"
+import { data } from "./emoji.js"; // импорт объекта с массивами
+
+const cont = document.querySelector(".grid__container"); // переменная для области, куда добавлять карточки
 
 function removeRepeats(arr) {
-    data.forEach(elem => {
-        elem.keywords = Array.from(new Set(elem.keywords.split(" "))).join(" ");
-    })
-}
-removeRepeats(data);
-
-const cont = document.querySelector(".grid__container");
+  data.forEach((elem) => {
+    elem.keywords = Array.from(new Set(elem.keywords.split(" "))).join(" ");
+  });
+} // функция для удаления дубликатов значений из объекта с массивами emoji.js
 
 function createCard(data) {
-const card = document.createElement("div");
-card.className = "grid__card";
+  const card = document.createElement("div");
+  card.className = "grid__card";
 
-const emoji = document.createElement("div");
-emoji.className = "card__emoji";
-emoji.textContent = data.symbol;
+  const emoji = document.createElement("div");
+  emoji.className = "card__emoji";
+  emoji.textContent = data.symbol;
 
-const title = document.createElement("h2");
-title.className = "card__title";
-title.textContent = data.title;
+  const title = document.createElement("h2");
+  title.className = "card__title";
+  title.textContent = data.title;
 
-const description = document.createElement("p");
-description.className = "card__description";
-description.textContent = data.keywords;
+  const description = document.createElement("p");
+  description.className = "card__description";
+  description.textContent = data.keywords;
 
-card.append(emoji);
-card.append(title);
-card.append(description);
+  card.append(emoji);
+  card.append(title);
+  card.append(description);
 
-return card;
-}
+  return card;
+} // функция для создания карточки из объекта с массивами
 
-data.forEach(elem => {
-    cont.append(createCard(elem));
-})
+removeRepeats(data); // вызов функции, которая удаляет дубликаты
+
+data.forEach((elem) => {
+  cont.append(createCard(elem));
+}); // вызов функции для создания карточки внутри заданной области через цикл
