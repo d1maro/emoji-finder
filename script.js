@@ -46,8 +46,10 @@ const inputData = document.querySelector("input"); // переменная дл�
 inputData.addEventListener("change", inputHandler); // прослушивание элемента
 
 function inputHandler(event) {
-  let x = event.target.value;
-  let y = data.filter((elem) => elem.keywords.includes(x));
+  let x = event.target.value.toLowerCase().trim(); // поиск не учитывает регистр и пробелы в конце и в начале
+  let y = data.filter(
+    (elem) => elem.keywords.includes(x) || elem.title.includes(x) // поиск по ключевым словам и тайтлу
+  );
   cont.innerHTML = ""; // предварительная очистка страницы
   y.forEach((elem) => cont.append(createCard(elem))); // отрисовка элементов из нового массива
 }
