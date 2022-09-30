@@ -1,6 +1,16 @@
 "use strict";
 
-import { data } from "./emoji.js"; // импорт объекта с массивами
+// import { data } from "./emoji.js"; // импорт массива с объектами
+
+let url = "https://emoji.ymatuhin.workers.dev";
+
+async function getData() {
+  let response = await fetch(url);
+  let data = await response.json();
+  return data;
+} // функция для получения массива с объектами по внешней ссылке
+
+let data = await getData(url);
 
 const cont = document.querySelector(".grid__container"); // переменная для области, куда добавлять карточки
 
@@ -8,7 +18,7 @@ function removeRepeats(arr) {
   data.forEach((elem) => {
     elem.keywords = Array.from(new Set(elem.keywords.split(" "))).join(" ");
   });
-} // функция для удаления дубликатов значений из объекта с массивами emoji.js
+} // функция для удаления дубликатов значений из массива с объектами emoji.js
 
 function createCard(data) {
   const card = document.createElement("div");
