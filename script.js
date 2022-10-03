@@ -81,7 +81,9 @@ inputData.addEventListener("change", inputHandler); // прослушивани�
 function inputHandler(event) {
   let x = event.target.value.toLowerCase().trim(); // поиск не учитывает регистр и пробелы в конце и в начале
   x = x.split(" ");
-  let y = x.map((elem) => data.filter((e) => e.keywords.includes(elem))); // переменная для поиска по нескольким ключевым словам
+  let y = x.map((elem) =>
+    data.filter((e) => e.keywords.includes(elem) || e.title.includes(elem))
+  ); // переменная для поиска по нескольким ключевым словам
   cont.innerHTML = ""; // предварительная очистка страницы
   [...new Set(y.flat(2))].forEach((elem) => cont.append(createCard(elem))); // отрисовка элементов из нового массива
 }
