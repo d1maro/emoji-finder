@@ -57,9 +57,22 @@ inputData.addEventListener("change", inputHandler); // прослушивани�
 
 function inputHandler(event) {
   let x = event.target.value.toLowerCase().trim(); // поиск не учитывает регистр и пробелы в конце и в начале
+  x = x.split(" ");
+  console.log(x);
   let y = data.filter(
-    (elem) => elem.keywords.includes(x) || elem.title.includes(x) // поиск по ключевым словам и тайтлу
+    (elem) =>
+      elem.keywords.includes(x) ||
+      elem.title.includes(x) ||
+      (elem.keywords.includes(x[0]) && elem.keywords.includes(x[1])) ||
+      (elem.title.includes(x[0]) && elem.title.includes(x[1])) ||
+      (elem.keywords.includes(x[0]) &&
+        elem.keywords.includes(x[1]) &&
+        elem.keywords.includes(x[2])) ||
+      (elem.title.includes(x[0]) &&
+        elem.title.includes(x[1]) &&
+        elem.title.includes(x[2])) // поиск по ключевым словам и тайтлу
   );
+  console.log(y);
   cont.innerHTML = ""; // предварительная очистка страницы
   y.forEach((elem) => cont.append(createCard(elem))); // отрисовка элементов из нового массива
 }
