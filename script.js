@@ -55,25 +55,33 @@ form.addEventListener("submit", (event) => event.preventDefault()); // пред�
 const inputData = document.querySelector("input"); // переменная для инпута
 inputData.addEventListener("change", inputHandler); // прослушивание элемента
 
+// function inputHandler(event) {
+//   let x = event.target.value.toLowerCase().trim(); // поиск не учитывает регистр и пробелы в конце и в начале
+//   x = x.split(" ");
+//   console.log(x);
+//   let y = data.filter(
+//     (elem) =>
+//       elem.keywords.includes(x) ||
+//       elem.title.includes(x) ||
+//       (elem.keywords.includes(x[0]) && elem.keywords.includes(x[1])) ||
+//       (elem.title.includes(x[0]) && elem.title.includes(x[1])) ||
+//       (elem.keywords.includes(x[0]) &&
+//         elem.keywords.includes(x[1]) &&
+//         elem.keywords.includes(x[2])) ||
+//       (elem.title.includes(x[0]) &&
+//         elem.title.includes(x[1]) &&
+//         elem.title.includes(x[2])) // поиск по ключевым словам и тайтлу
+//   );
+//   console.log(y);
+//   cont.innerHTML = ""; // предварительная очистка страницы
+//   y.forEach((elem) => cont.append(createCard(elem))); // отрисовка элементов из нового массива
+// }
+// функция для поиска и отрисовки по значению инпута с костылем для нескольких элементов
+
 function inputHandler(event) {
   let x = event.target.value.toLowerCase().trim(); // поиск не учитывает регистр и пробелы в конце и в начале
   x = x.split(" ");
-  console.log(x);
-  let y = data.filter(
-    (elem) =>
-      elem.keywords.includes(x) ||
-      elem.title.includes(x) ||
-      (elem.keywords.includes(x[0]) && elem.keywords.includes(x[1])) ||
-      (elem.title.includes(x[0]) && elem.title.includes(x[1])) ||
-      (elem.keywords.includes(x[0]) &&
-        elem.keywords.includes(x[1]) &&
-        elem.keywords.includes(x[2])) ||
-      (elem.title.includes(x[0]) &&
-        elem.title.includes(x[1]) &&
-        elem.title.includes(x[2])) // поиск по ключевым словам и тайтлу
-  );
-  console.log(y);
+  let y = x.map((elem) => data.filter((e) => e.keywords.includes(elem))); // переменная для поиска по нескольким ключевым словам
   cont.innerHTML = ""; // предварительная очистка страницы
-  y.forEach((elem) => cont.append(createCard(elem))); // отрисовка элементов из нового массива
+  [...new Set(y.flat(2))].forEach((elem) => cont.append(createCard(elem))); // отрисовка элементов из нового массива
 }
-// функция для поиска и отрисовки по значению инпута
