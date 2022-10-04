@@ -2,17 +2,23 @@
 
 // import { data } from "./emoji.js"; // импорт массива с объектами
 
+const form = document.forms[0]; // переменная для формы (она единственная, поэтому forms[0])
+form.addEventListener("submit", (event) => event.preventDefault()); // предотвращение перезагрузки страницы при отправке формы
+
+const inputData = document.querySelector("input"); // переменная для инпута
+inputData.addEventListener("change", inputHandler); // прослушивание элемента
+
+const cont = document.querySelector(".grid__container"); // переменная для области, куда добавлять карточки
+
 let url = "https://emoji.ymatuhin.workers.dev";
+
+let data = await getData(url);
 
 async function getData() {
   let response = await fetch(url);
   let data = await response.json();
   return data;
 } // функция для получения массива с объектами по внешней ссылке
-
-let data = await getData(url);
-
-const cont = document.querySelector(".grid__container"); // переменная для области, куда добавлять карточки
 
 function removeRepeats(arr) {
   data.forEach((elem) => {
@@ -48,12 +54,6 @@ removeRepeats(data); // вызов функции, которая удаляет
 data.forEach((elem) => {
   cont.append(createCard(elem));
 }); // вызов функции для создания карточки внутри заданной области через цикл
-
-const form = document.forms[0]; // переменная для формы (она единственная, поэтому forms[0])
-form.addEventListener("submit", (event) => event.preventDefault()); // предотвращение перезагрузки страницы при отправке формы
-
-const inputData = document.querySelector("input"); // переменная для инпута
-inputData.addEventListener("change", inputHandler); // прослушивание элемента
 
 // function inputHandler(event) {
 //   let x = event.target.value.toLowerCase().trim(); // поиск не учитывает регистр и пробелы в конце и в начале
